@@ -45,7 +45,7 @@ DefinitionBlock ("", "SSDT", 2, "HPQOEM", "SLIC-CPC", 0x00003000)
     External (_SB_.PCI0, DeviceObj)
     External (_SB_.PCI0.GEXP.GEPS, MethodObj)    // 2 Arguments
     External (_SB_.PCI0.GEXP.SGEP, MethodObj)    // 3 Arguments
-    External (_SB_.PCI0.IGPU, DeviceObj)
+    External (_SB_.PCI0.GFX0, DeviceObj)
     External (_SB_.PCI0.PEG0, DeviceObj)
     External (_SB_.PCI0.PEG0.PEGP, DeviceObj)
     External (_SB_.PCI0.PEG1, DeviceObj)
@@ -974,7 +974,7 @@ DefinitionBlock ("", "SSDT", 2, "HPQOEM", "SLIC-CPC", 0x00003000)
         }
     }
 
-    Scope (\_SB.PCI0.IGPU)
+    Scope (\_SB.PCI0.GFX0)
     {
         Method (_DOS, 1, NotSerialized)  // _DOS: Disable Output Switching
         {
@@ -2496,7 +2496,7 @@ DefinitionBlock ("", "SSDT", 2, "HPQOEM", "SLIC-CPC", 0x00003000)
             {
                 If (LAnd (LGreaterEqual (Arg0, Zero), LLessEqual (Arg0, 0x64)))
                 {
-                    \_SB.PCI0.IGPU.AINT (One, Arg0)
+                    \_SB.PCI0.GFX0.AINT (One, Arg0)
                     Store (Arg0, BRTL)
                 }
             }
@@ -3213,7 +3213,7 @@ DefinitionBlock ("", "SSDT", 2, "HPQOEM", "SLIC-CPC", 0x00003000)
             Store (0x03, CSTS)
             If (LAnd (LEqual (CHPD, Zero), LEqual (Arg1, Zero)))
             {
-                Notify (\_SB.PCI0.IGPU, Arg1)
+                Notify (\_SB.PCI0.GFX0, Arg1)
             }
 
             If (CondRefOf (HNOT))
@@ -3222,7 +3222,7 @@ DefinitionBlock ("", "SSDT", 2, "HPQOEM", "SLIC-CPC", 0x00003000)
             }
             Else
             {
-                Notify (\_SB.PCI0.IGPU, 0x80)
+                Notify (\_SB.PCI0.GFX0, 0x80)
             }
 
             Return (Zero)
@@ -3619,7 +3619,7 @@ DefinitionBlock ("", "SSDT", 2, "HPQOEM", "SLIC-CPC", 0x00003000)
         }
     }
 
-    Scope (\_SB.PCI0.IGPU)
+    Scope (\_SB.PCI0.GFX0)
     {
         Device (SKC0)
         {
